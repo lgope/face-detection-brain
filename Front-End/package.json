@@ -12,6 +12,7 @@
     "react-particles-js": "^2.7.0",
     "react-scripts": "3.3.0",
     "react-tilt": "^0.1.4",
+    "serialize-javascript": "^2.1.2",
     "tachyons": "^4.11.1"
   },
   "scripts": {
