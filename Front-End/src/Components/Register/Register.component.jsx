@@ -25,7 +25,7 @@ class Register extends Component {
   onSubmitSignIn = () => {
     this.props.onRouteChange('home');
 
-    // fetch('http://localhost:3000/home', {
+    // fetch('http://localhost:5000/home', {
     //   method: 'post',
     //   headers: { 'Content-Type': 'application/json' },
     //   body: JSON.stringify({
@@ -33,7 +33,7 @@ class Register extends Component {
     //     password: this.state.password,
     //     name: this.state.name
     //   })
-    // });
+    // })
     // .then(response => response.json())
     // .then(user => {
     //   if (user) {

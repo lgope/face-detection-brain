@@ -47,6 +47,25 @@ class App extends Component {
     };
   }
 
+  // For test connection with the server
+  // componentDidMount() {
+  //   fetch('http://localhost:5000/profile/123')
+  //     .then(res => res.json())
+  //     .then(console.log);
+  // }
+
+  loadUser = data => {
+    this.setState({
+      user: {
+        id: data.id,
+        name: data.name,
+        email: data.email,
+        entries: data.entries,
+        joined: data.joined
+      }
+    });
+  };
+
   calculateFaceLocation = data => {
     const image = document.getElementById('inputimage');
     const width = Number(image.width);
