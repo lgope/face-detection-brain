@@ -18,20 +18,29 @@ class Signin extends Component {
   };
 
   onSubmitSignIn = () => {
-    fetch('http://localhost:5000/signin', {
-      method: 'post',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        email: this.state.signInEmail,
-        password: this.state.signInPassword
+    const { signInEmail, signInPassword } = this.state;
+
+    if (signInEmail.length && signInPassword.length) {
+      fetch('http://localhost:5000/signin', {
+        method: 'post',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email: signInEmail,
+          password: signInPassword
+        })
       })
-    }).then(response => response.json());
-    // .then(user => {
-    //   if (user.id) {
-    //     this.props.loadUser(user);
-    //     this.props.onRouteChange('home');
-    //   }
-    // });
+        .then(response => response.json())
+        .then(user => {
+          if (user.id) {
+            this.props.loadUser(user);
+            this.props.onRouteChange('home');
+          } else {
+            alert('Wrong Credentials!');
+          }
+        });
+    } else {
+      alert('Fill Up All Field!');
+    }
   };
 
   render() {
@@ -49,6 +58,7 @@ class Signin extends Component {
                 <input
                   className='pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100'
                   type='email'
+                  placeholder='Email'
                   name='email-address'
                   id='email-address'
                   onChange={this.onEmailChange}
@@ -61,6 +71,7 @@ class Signin extends Component {
                 <input
                   className='b pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100'
                   type='password'
+                  placeholder='Password'
                   name='password'
                   id='password'
                   onChange={this.onPasswordChange}

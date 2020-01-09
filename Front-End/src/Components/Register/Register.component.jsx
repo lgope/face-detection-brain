@@ -23,24 +23,30 @@ class Register extends Component {
   };
 
   onSubmitSignIn = () => {
-    this.props.onRouteChange('home');
-
-    // fetch('http://localhost:5000/home', {
-    //   method: 'post',
-    //   headers: { 'Content-Type': 'application/json' },
-    //   body: JSON.stringify({
-    //     email: this.state.email,
-    //     password: this.state.password,
-    //     name: this.state.name
-    //   })
-    // })
-    // .then(response => response.json())
-    // .then(user => {
-    //   if (user) {
-    //     this.props.loadUser(user);
-    //     this.props.onRouteChange('home');
-    //   }
-    // });
+    // this.props.onRouteChange('home');
+    const { email, name, password } = this.state;
+    if (email.length && name.length && password.length) {
+      fetch('http://localhost:5000/register', {
+        method: 'post',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email,
+          password,
+          name
+        })
+      })
+        .then(response => response.json())
+        .then(user => {
+          if (user) {
+            this.props.loadUser(user);
+            this.props.onRouteChange('home');
+          } else {
+            alert('Unable to register!');
+          }
+        });
+    } else {
+      alert('Fill Up All Field!');
+    }
   };
 
   render() {
@@ -57,6 +63,7 @@ class Register extends Component {
                 <input
                   className='pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100'
                   type='text'
+                  placeholder='Name'
                   name='name'
                   id='name'
                   onChange={this.onNameChange}
@@ -69,6 +76,7 @@ class Register extends Component {
                 <input
                   className='pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100'
                   type='email'
+                  placeholder='Email'
                   name='email-address'
                   id='email-address'
                   onChange={this.onEmailChange}
@@ -81,6 +89,7 @@ class Register extends Component {
                 <input
                   className='b pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100'
                   type='password'
+                  placeholder='Password'
                   name='password'
                   id='password'
                   onChange={this.onPasswordChange}
