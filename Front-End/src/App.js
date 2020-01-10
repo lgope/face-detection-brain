@@ -1,16 +1,17 @@
 import React, { Component } from 'react';
 import Particles from 'react-particles-js';
 
+import Account from './Components/Account/Account.component';
 import Navigation from './Components/Navigation/Navigation.component';
 import Logo from './Components/Logo/Logo.component';
 import ImageLinkForm from './Components/ImageLinkForm/ImageLinkForm.component';
 import Rank from './Components/Rank/Rank.component';
 import FaceDetection from './Components/FaceDetection/FaceDetection.component';
+
 import Signin from './Components/Signin/Signin.component';
 import Register from './Components/Register/Register.component';
 
 import './App.css';
-
 const particlesOptions = {
   particles: {
     number: {
@@ -28,13 +29,16 @@ const initialState = {
   imageUrl: '',
   boxes: [],
   route: 'signin',
+  isProfileOpen: false,
   isSignedIn: false,
   user: {
     id: '',
     name: '',
     email: '',
     entries: 0,
-    joined: ''
+    joined: '',
+    age: 0,
+    pet: ''
   }
 };
 
@@ -88,6 +92,9 @@ class App extends Component {
 
   // onPictureSubmit()
   onButtonSubmit = () => {
+    if (!this.state.input.length) {
+      return alert('Please enter an image address!');
+    }
     this.setState({ imageUrl: this.state.input });
     fetch('https://fda-backend.herokuapp.com/imageUrl', {
       method: 'post',
@@ -119,11 +126,18 @@ class App extends Component {
 
   onRouteChange = route => {
     if (route === 'signout') {
-      this.setState(initialState);
+      return this.setState(initialState);
     } else if (route === 'home') {
       this.setState({ isSignedIn: true });
     }
     this.setState({ route: route });
+  };
+
+  toggleModal = () => {
+    this.setState(state => ({
+      ...state,
+      isProfileOpen: !state.isProfileOpen
+    }));
   };
 
   render() {
@@ -131,13 +145,23 @@ class App extends Component {
     return (
       <div className='App'>
         <Particles className='particles' params={particlesOptions} />
-        <Navigation
-          isSignedIn={isSignedIn}
-          onRouteChange={this.onRouteChange}
-        />
-        {route === 'home' ? (
+        {
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: isSignedIn ? 'space-between' : 'flex-end'
+            }}
+          >
+            {isSignedIn && <Logo />}
+            <Navigation
+              isSignedIn={isSignedIn}
+              onRouteChange={this.onRouteChange}
+              toggleModal={this.toggleModal}
+            />
+          </div>
+        }
+        {route === 'home' && (
           <div>
-            <Logo />
             <Rank
               name={this.state.user.name}
               entries={this.state.user.entries}
@@ -148,9 +172,19 @@ class App extends Component {
             />
             <FaceDetection boxes={boxes} imageUrl={imageUrl} />
           </div>
-        ) : route === 'signin' ? (
+        )}
+
+        {route === 'account' && (
+          <Account
+            name={this.state.user.name}
+            email={this.state.user.email}
+            onRouteChange={this.onRouteChange}
+          />
+        )}
+        {route === 'signin' && (
           <Signin loadUser={this.loadUser} onRouteChange={this.onRouteChange} />
-        ) : (
+        )}
+        {route === 'register' && (
           <Register
             loadUser={this.loadUser}
             onRouteChange={this.onRouteChange}

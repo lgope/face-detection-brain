@@ -1,6 +1,8 @@
-import React, { Component } from 'react';
+// fetch('https://fda-backend.herokuapp.com/signin', {
+import React from 'react';
+import './Signin.styles.css';
 
-class Signin extends Component {
+class Signin extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -17,30 +19,26 @@ class Signin extends Component {
     this.setState({ signInPassword: event.target.value });
   };
 
-  onSubmitSignIn = () => {
+  onSubmitSignIn = (userType = '') => {
     const { signInEmail, signInPassword } = this.state;
 
-    if (signInEmail.length && signInPassword.length) {
-      fetch('https://fda-backend.herokuapp.com/signin', {
-        method: 'post',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          email: signInEmail,
-          password: signInPassword
-        })
+    fetch('https://fda-backend.herokuapp.com/signin', {
+      method: 'post',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        email: userType === 'guest' ? 'guest@gmail.com' : signInEmail,
+        password: userType === 'guest' ? '1234' : signInPassword
       })
-        .then(response => response.json())
-        .then(user => {
-          if (user.id) {
-            this.props.loadUser(user);
-            this.props.onRouteChange('home');
-          } else {
-            alert('Wrong Credentials!');
-          }
-        });
-    } else {
-      alert('Fill Up All Field!');
-    }
+    })
+      .then(response => response.json())
+      .then(user => {
+        if (user.id) {
+          this.props.loadUser(user);
+          this.props.onRouteChange('home');
+        } else {
+          alert('Wrong Credentials!');
+        }
+      });
   };
 
   render() {
@@ -56,9 +54,8 @@ class Signin extends Component {
                   Email
                 </label>
                 <input
-                  className='pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100'
+                  className='pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100 hover-black'
                   type='email'
-                  placeholder='Email'
                   name='email-address'
                   id='email-address'
                   onChange={this.onEmailChange}
@@ -69,30 +66,39 @@ class Signin extends Component {
                   Password
                 </label>
                 <input
-                  className='b pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100'
+                  className='b pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100 hover-black'
                   type='password'
-                  placeholder='Password'
                   name='password'
                   id='password'
                   onChange={this.onPasswordChange}
                 />
               </div>
+              <div className=''>
+                <input
+                  onClick={() => this.onSubmitSignIn()}
+                  className='b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib'
+                  type='submit'
+                  value='Sign in'
+                />
+              </div>
             </fieldset>
-            <div className=''>
-              <input
-                onClick={this.onSubmitSignIn}
-                className='b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib'
-                type='submit'
-                value='Sign in'
-              />
-            </div>
-            <div className='lh-copy mt3'>
-              <p
-                onClick={() => onRouteChange('register')}
-                className='f6 link dim black db pointer'
-              >
-                Register
-              </p>
+            <div style={{ display: 'flex', justifyContent: 'space-around' }}>
+              <div className=''>
+                <input
+                  onClick={() => this.onSubmitSignIn('guest')}
+                  className='b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib outline pa2 mr2'
+                  type='submit'
+                  value='Guest Login'
+                />
+              </div>
+              <div className=''>
+                <input
+                  onClick={() => onRouteChange('register')}
+                  className='b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib outline pa3 mr2'
+                  type='submit'
+                  value='Register'
+                />
+              </div>
             </div>
           </div>
         </main>
