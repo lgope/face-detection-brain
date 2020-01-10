@@ -12,22 +12,6 @@ const users = require('./controllers/users');
 const loginTable = require('./controllers/loginTable');
 const leaderboard = require('./controllers/leaderboard');
 
-// const db = knex({
-//   client: 'pg',
-//   connection: {
-//     host: '',
-//     user: '',
-//     password: '',
-//     database: ''
-//   }
-// });
-
-// db.select('*')
-//   .from('users')
-//   .then(data => {
-//     console.log(data);
-//   });
-
 const app = express();
 
 app.use(cors());

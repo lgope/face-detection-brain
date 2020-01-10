@@ -25,3 +25,4 @@ yarn-error.log*
 
 # others
 database.js
+config.env*
