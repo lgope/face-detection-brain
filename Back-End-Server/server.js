@@ -18,7 +18,7 @@ app.use(cors());
 app.use(bodyParser.json());
 
 app.get('/', (req, res) => {
-  res.status(200).json('Wellcome to face-detection-app back end server!🗽🙂');
+  res.status(200).json('Wellcome to face-detection-app back end server!🗽🎉');
 });
 
 app.get('/users', users.handleUserList(db));
