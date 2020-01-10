@@ -1,4 +1,3 @@
-// fetch('https://fda-backend.herokuapp.com/signin', {
 import React from 'react';
 import './Signin.styles.css';
 

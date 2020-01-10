@@ -48,13 +48,6 @@ class App extends Component {
     this.state = initialState;
   }
 
-  // For test connection with the server
-  // componentDidMount() {
-  //   fetch('http://localhost:5000/profile/123')
-  //     .then(res => res.json())
-  //     .then(console.log);
-  // }
-
   loadUser = data => {
     this.setState({
       user: {

@@ -23,7 +23,6 @@ class Register extends Component {
   };
 
   onSubmitSignIn = () => {
-    // this.props.onRouteChange('home');
     const { email, name, password } = this.state;
     if (email.length && name.length && password.length) {
       fetch('https://fda-backend.herokuapp.com/register', {
