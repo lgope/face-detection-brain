@@ -26,7 +26,7 @@ class Register extends Component {
     // this.props.onRouteChange('home');
     const { email, name, password } = this.state;
     if (email.length && name.length && password.length) {
-      fetch('http://localhost:5000/register', {
+      fetch('https://fda-backend.herokuapp.com/register', {
         method: 'post',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

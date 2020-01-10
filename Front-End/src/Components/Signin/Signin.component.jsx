@@ -21,7 +21,7 @@ class Signin extends Component {
     const { signInEmail, signInPassword } = this.state;
 
     if (signInEmail.length && signInPassword.length) {
-      fetch('http://localhost:5000/signin', {
+      fetch('https://fda-backend.herokuapp.com/signin', {
         method: 'post',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

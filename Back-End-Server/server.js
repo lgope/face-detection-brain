@@ -10,6 +10,7 @@ const profile = require('./controllers/profile');
 const image = require('./controllers/image');
 const users = require('./controllers/users');
 const loginTable = require('./controllers/loginTable');
+const leaderboard = require('./controllers/leaderboard');
 
 // const db = knex({
 //   client: 'pg',
@@ -46,10 +47,12 @@ app.post('/register', register.handleRegister(db, bcrypt));
 
 app.get('/profile/:id', profile.handleProfileGet(db));
 
+app.get('/leaderboard', (req, res) => leaderboard.getLeaderboard(req, res, db));
+
 app.put('/image', image.handleImage(db));
 app.post('/imageUrl', (req, res) => image.handleApiCall(req, res));
 
-const port = process.env.PORT || 4000;
+const port = process.env.PORT || 5000;
 app.listen(port, () => {
   console.log(`App running on port ${port}...`);
 });
