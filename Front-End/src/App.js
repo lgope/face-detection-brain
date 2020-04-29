@@ -18,10 +18,10 @@ const particlesOptions = {
       value: 120,
       density: {
         enable: true,
-        value_area: 800
-      }
-    }
-  }
+        value_area: 800,
+      },
+    },
+  },
 };
 
 const initialState = {
@@ -38,8 +38,8 @@ const initialState = {
     entries: 0,
     joined: '',
     age: 0,
-    pet: ''
-  }
+    pet: '',
+  },
 };
 
 class App extends Component {
@@ -48,38 +48,38 @@ class App extends Component {
     this.state = initialState;
   }
 
-  loadUser = data => {
+  loadUser = (data) => {
     this.setState({
       user: {
         id: data.id,
         name: data.name,
         email: data.email,
         entries: data.entries,
-        joined: data.joined
-      }
+        joined: data.joined,
+      },
     });
   };
 
-  calculateFaceLocation = data => {
+  calculateFaceLocation = (data) => {
     const image = document.getElementById('inputimage');
     const width = Number(image.width);
     const height = Number(image.height);
-    return data.outputs[0].data.regions.map(face => {
+    return data.outputs[0].data.regions.map((face) => {
       const clarifaiFace = face.region_info.bounding_box;
       return {
         leftCol: clarifaiFace.left_col * width,
         topRow: clarifaiFace.top_row * height,
         rightCol: width - clarifaiFace.right_col * width,
-        bottomRow: height - clarifaiFace.bottom_row * height
+        bottomRow: height - clarifaiFace.bottom_row * height,
       };
     });
   };
 
-  displayFaceBox = boxes => {
+  displayFaceBox = (boxes) => {
     this.setState({ boxes: boxes });
   };
 
-  onInputChange = event => {
+  onInputChange = (event) => {
     this.setState({ input: event.target.value });
   };
 
@@ -93,31 +93,31 @@ class App extends Component {
       method: 'post',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        input: this.state.input
-      })
+        input: this.state.input,
+      }),
     })
-      .then(response => response.json())
-      .then(response => {
+      .then((response) => response.json())
+      .then((response) => {
         if (response) {
           fetch('https://fda-backend.herokuapp.com/image', {
             method: 'put',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
-              id: this.state.user.id
-            })
+              id: this.state.user.id,
+            }),
           })
-            .then(response => response.json())
-            .then(count => {
+            .then((response) => response.json())
+            .then((count) => {
               this.setState(Object.assign(this.state.user, { entries: count }));
             })
-            .catch(err => alert('Something Wrong!'));
+            .catch((err) => alert('Something Wrong!'));
         }
         this.displayFaceBox(this.calculateFaceLocation(response));
       })
-      .catch(err => console.log(err));
+      .catch((err) => console.log(err));
   };
 
-  onRouteChange = route => {
+  onRouteChange = (route) => {
     if (route === 'signout') {
       return this.setState(initialState);
     } else if (route === 'home') {
@@ -127,9 +127,9 @@ class App extends Component {
   };
 
   toggleModal = () => {
-    this.setState(state => ({
+    this.setState((state) => ({
       ...state,
-      isProfileOpen: !state.isProfileOpen
+      isProfileOpen: !state.isProfileOpen,
     }));
   };
 
@@ -142,7 +142,7 @@ class App extends Component {
           <div
             style={{
               display: 'flex',
-              justifyContent: isSignedIn ? 'space-between' : 'flex-end'
+              justifyContent: isSignedIn ? 'space-between' : 'flex-end',
             }}
           >
             {isSignedIn && <Logo />}

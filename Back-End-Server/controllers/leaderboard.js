@@ -3,12 +3,12 @@ const getLeaderboard = (req, res, db) => {
     .from('users')
     .orderBy('entries', 'desc')
     .limit(43)
-    .then(data => {
+    .then((data) => {
       return res.status(200).json(data);
     })
-    .catch(err => res.status(400).json('error getting leaderboard'));
+    .catch((err) => res.status(400).json('error getting leaderboard'));
 };
 
 module.exports = {
-  getLeaderboard
+  getLeaderboard,
 };

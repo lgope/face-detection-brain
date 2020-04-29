@@ -6,15 +6,15 @@ class Signin extends React.Component {
     super(props);
     this.state = {
       signInEmail: '',
-      signInPassword: ''
+      signInPassword: '',
     };
   }
 
-  onEmailChange = event => {
+  onEmailChange = (event) => {
     this.setState({ signInEmail: event.target.value });
   };
 
-  onPasswordChange = event => {
+  onPasswordChange = (event) => {
     this.setState({ signInPassword: event.target.value });
   };
 
@@ -26,11 +26,11 @@ class Signin extends React.Component {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         email: userType === 'guest' ? 'guest@gmail.com' : signInEmail,
-        password: userType === 'guest' ? '1234' : signInPassword
-      })
+        password: userType === 'guest' ? '1234' : signInPassword,
+      }),
     })
-      .then(response => response.json())
-      .then(user => {
+      .then((response) => response.json())
+      .then((user) => {
         if (user.id) {
           this.props.loadUser(user);
           this.props.onRouteChange('home');
