@@ -3,14 +3,14 @@ import {
   Dropdown,
   DropdownToggle,
   DropdownMenu,
-  DropdownItem
+  DropdownItem,
 } from 'reactstrap';
 
 class Navigation extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      dropdownOpen: false
+      dropdownOpen: false,
     };
   }
 
@@ -18,7 +18,7 @@ class Navigation extends React.Component {
     console.log(this.state.dropdownOpen);
 
     this.setState({
-      dropdownOpen: !this.state.dropdownOpen
+      dropdownOpen: !this.state.dropdownOpen,
     });
   };
 
@@ -45,7 +45,7 @@ class Navigation extends React.Component {
               style={{
                 marginTop: '15px',
                 left: '-80%',
-                backgroundColor: 'rgba(255, 255, 255, 0.5)'
+                backgroundColor: 'rgba(255, 255, 255, 0.5)',
               }}
               right
             >
@@ -99,7 +99,7 @@ class Navigation extends React.Component {
               style={{
                 marginTop: '20px',
                 right: '1px',
-                backgroundColor: 'rgba(255, 255, 255, 0.5)'
+                backgroundColor: 'rgba(255, 255, 255, 0.5)',
               }}
               right
             >

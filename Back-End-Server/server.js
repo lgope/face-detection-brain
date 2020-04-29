@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const bcrypt = require('bcrypt-nodejs');
 const cors = require('cors');
+const chalk = require('chalk');
 
 const db = require('./database');
 const register = require('./controllers/register');
@@ -38,5 +39,5 @@ app.post('/imageUrl', (req, res) => image.handleApiCall(req, res));
 
 const port = process.env.PORT || 5000;
 app.listen(port, () => {
-  console.log(`App running on port ${port}...`);
+  console.log(`App running on port ${chalk.greenBright(port)}...`);
 });

@@ -6,15 +6,15 @@ class AccountSettings extends React.Component {
     super(props);
     this.state = {
       currentPassword: '',
-      newPassword: ''
+      newPassword: '',
     };
   }
 
-  onCurrentPasswordChange = event => {
+  onCurrentPasswordChange = (event) => {
     this.setState({ currentPassword: event.target.value });
   };
 
-  onNewPasswordChange = event => {
+  onNewPasswordChange = (event) => {
     this.setState({ newPassword: event.target.value });
   };
 
