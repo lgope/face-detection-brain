@@ -14,7 +14,7 @@
     "react-scripts": "3.3.0",
     "react-tilt": "^0.1.4",
     "reactstrap": "^8.2.0",
-    "serialize-javascript": "^2.1.2",
+    "serialize-javascript": "^3.1.0",
     "tachyons": "^4.11.1"
   },
   "scripts": {
