@@ -6,10 +6,10 @@
     "start": "node server.js",
     "start:prod": "NODE_ENV=production nodemon server.js",
     "dev-server": "nodemon server.js",
-    "client-install": "npm install --prefix client",
-    "client": "npm start --prefix client",
-    "both": "concurrently \"npm run dev-server\" \"npm run client\"",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
+    "client-install": "npm install --prefix front-end",
+    "front-end": "npm start --prefix front-end",
+    "both": "concurrently \"npm run dev-server\" \"npm run front-end\"",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix front-end && npm run build --prefix front-end"
   },
   "keywords": [],
   "author": "",
